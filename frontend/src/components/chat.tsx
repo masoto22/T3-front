@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { Send, Trash2 } from 'lucide-react';
 
 export const chatModel = async (messages: { role: string; content: string }[], onMessage: (partialMessage: string) => void) => {
-  const response = await fetch('http://localhost:8000/chat', {
+  const response = await fetch('https://backend-t3-8mrjk7tiy-masoto22s-projects.vercel.app/chat', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
