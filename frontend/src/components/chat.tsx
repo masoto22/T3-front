@@ -3,7 +3,7 @@
 
 import React, {useState, useEffect, useRef} from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Send, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 interface Movie {
   title: string;
