@@ -12,7 +12,7 @@ interface Movie {
 
 
 export const chatModel = async (messages: { role: string; content: string }[], onMessage: (partialMessage: string) => void) => {
-  const response = await fetch('https://backend-t3-9s2x3mv71-masoto22s-projects.vercel.app/chat', {
+  const response = await fetch('https://backend-t3-masoto22-masoto22s-projects.vercel.app/chat', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
