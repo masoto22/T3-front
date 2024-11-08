@@ -24,27 +24,20 @@ const movies: Movie[] = [
 ]
 
 //https://ui.shadcn.com/examples/cards
-const MovieChart = () => {
-  const [currentDate, setCurrentDate] = useState(new Date()); // eslint-disable-line @typescript-eslint/no-unused-vars
-
-  useEffect(() => {
-    setCurrentDate(new Date());
-  }, []);
-
+const MovieChart = ({ onSelectMovie, selectedMovie }: { onSelectMovie: (movie: Movie) => void, selectedMovie: Movie | null }) => {
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4 text-white">Películas sobre las que puedes consultar</h2>
-      {/* Usa currentDate aquí si es necesario */}
+      <h2 className="text-2xl font-bold mb-4 text-white">Selecciona una película</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {movies.map((movie) => (
-          <Card key={movie.title} className="overflow-hidden">
+          <Card key={movie.title} className="overflow-hidden" onClick={() => onSelectMovie(movie)}>
             <CardContent className="p-0">
-              <div className="relative aspect-[2/3] w-full">
+              <div className={`relative aspect-[2/3] w-full ${selectedMovie?.title === movie.title ? 'opacity-50' : ''}`}>
                 <Image
                   src={movie.imagePath}
                   alt={movie.title}
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer" // Añadir cursor pointer
                   sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
                 />
               </div>
@@ -60,16 +53,18 @@ const MovieChart = () => {
 };
 
 export default function MovieChatPage() {
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+
   return (
     <div className="min-h-screen h-screen flex flex-col lg:flex-row bg-gray-900 overflow-hidden">
       <div className="w-full lg:w-3/5 p-4 overflow-auto">
-        <MovieChart />
+        <MovieChart onSelectMovie={setSelectedMovie} selectedMovie={selectedMovie} />
       </div>
       <div className="w-full lg:w-2/5 p-4 h-full overflow-hidden bg-gray-900">
         <div className="h-full max-w-lg mx-auto">
-          <Chat/>
+          <Chat selectedMovie={selectedMovie} />
         </div>
       </div>
     </div>
-  )
+  );
 }
